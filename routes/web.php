@@ -1,6 +1,10 @@
 <?php
 
+use App\Http\Controllers\Controller;
+use App\Http\Controllers\RegisterController;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\UserController;
+use Illuminate\Support\Facades\Http;
 
 /*
 |--------------------------------------------------------------------------
@@ -16,3 +20,8 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return view('welcome');
 });
+Route::post('/register',[UserController::class,'create'])->name('adding.one');
+Route::post('/registrer', [RegisterController::class, 'store'])->name('store');
+Route::get('/users', [UserController::class, 'index'])->name('home');
+Route::delete('/task-destroy/{id}', [UserController::class, 'destroy'])->name('User.destroy');
+
