@@ -1,116 +1,63 @@
-<!-- resources/views/users/index.blade.php -->
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>User List</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 
-    <!-- Link Bootstrap CSS (CDN) -->
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZwT" crossorigin="anonymous">
-
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            background-color: #f5f5f5;
-            margin: 0;
-            padding: 20px;
-        }
-
-        h1 {
-            color: #333;
-        }
-
-        table {
-            width: 100%;
-            border-collapse: collapse;
-            margin-top: 20px;
-        }
-
-        th, td {
-            padding: 12px;
-            text-align: left;
-            border-bottom: 1px solid #ddd;
-        }
-
-        th {
-            background-color: #f2f2f2;
-        }
-
-        tr:hover {
-            background-color: #f5f5f5;
-        }
-
-        /* Style for Bootstrap Navbar */
-        .navbar {
-            background-color: #007bff; /* Change this to your desired background color */
-        }
-
-        .navbar-brand,
-        .navbar-nav .nav-link {
-            color: #fff !important;
-        }
-
-        .navbar-brand:hover,
-        .navbar-nav .nav-link:hover {
-            color: #ccc !important;
-        }
-
-        .navbar-toggler-icon {
-            background-color: #fff; /* Change this to your desired background color */
-        }
-    </style>
 </head>
-<body>
+<body class="bg-gray-100">
 
-    <!-- Bootstrap Navbar -->
-    <nav class="navbar navbar-expand-lg navbar-light">
-        <a class="navbar-brand" href="#">Home</a>
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
-            <ul class="navbar-nav">
-                <li class="nav-item">
-                    <form method="POST" action="{{route("adding.one")}}">
-                        @csrf
-                        <button id="add-btn" type="submit">Add</button>
-                    </form>
-                </li>
-            </ul>
+    <nav class="bg-blue-500 p-4">
+        <div class="container mx-auto flex justify-between items-center">
+            <a class="text-white text-lg font-bold" href="#">Home</a>
+            <form method="POST" action="{{ route('user.create') }}">
+                @csrf
+                <button type="submit" class="bg-white text-blue-500 px-4 py-2 rounded-md shadow-md hover:bg-blue-100 transition duration-300">Add</button>
+            </form>
         </div>
     </nav>
 
-    <h1>User List</h1>
+    <div class="container mx-auto py-8">
+        <h1 class="text-3xl font-bold mb-8">User List</h1>
 
-    <table class="table">
-        <thead>
-            <tr>
-                <th>Name</th>
-                <th>Email</th>
-            </tr>
-        </thead>
-        <tbody>
-            @foreach ($users as $user)
+        <table class="w-full border-collapse border border-gray-300">
+            <thead>
                 <tr>
-                    <td>{{ $user->name }}</td>
-                    <td>{{ $user->email }}</td>
-                    <td>
-                        <form method="POST" action="{{route("User.destroy",$user->id)}}" style="margin-left:170px" >
-                            @csrf
-                            @method("DELETE")
-                            <button type="submit" class="delete-button">Delete</button>
-                        </form>
-                    </td>
+                    <th class="px-6 py-3 bg-gray-100">Name</th>
+                    <th class="px-6 py-3 bg-gray-100">Email</th>
+                    <th class="px-6 py-3 bg-gray-100">Actions</th>
                 </tr>
-            @endforeach
-        </tbody>
-    </table>
+            </thead>
+            <tbody>
+                @foreach ($users as $user)
+                    <tr class="hover:bg-gray-100 transition-colors">
+                        <td class="px-6 py-4 text-center">{{ $user->name }}</td>
+                        <td class="px-6 py-4 text-center">
+                            {{ $user->email }}
+                        </td>
+                        <td class="px-6 py-4 text-center">
+                            <a href="{{ route('user.edit', $user->id) }}" class="text-blue-500 hover:underline">
+                                <i class='fas fa-edit'></i>
+                                Update
+                            </a>
+                            <form method="POST" action="{{ route('user.destroy', $user->id) }}" class="inline">
+                                @csrf
+                                @method('DELETE')
+                                <button type="submit" class="text-red-500 ml-2 hover:underline">
+                                    <i class="fas fa-trash-alt"></i>
+                                    Delete
+                                </button>
+                            </form>
+                        </td>
+                    </tr>
+                @endforeach
+            </tbody>
+        </table>
+    </div>
 
-    <!-- Link Bootstrap JS and Popper.js (CDN) -->
-    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.14.7/dist/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
 </body>
 </html>
