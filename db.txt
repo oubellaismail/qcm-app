@@ -1,0 +1,59 @@
+migrate first 4 files => 
+
+migrate user, create password, create failed, create personal access and roles table;
+
+
+
+
+Insert those commands : 
+
+------------------------------------------------------------------------------------------------------------------------|
+php artisan make:model Departement --all                                                                                |
+php artisan make:model Filiere --all                                                                                    |
+                                                                                                                        |
+then                                                                                                                    |
+                                                                                                                        |
+> php artisan make:migration add_role_id_to_users_table --                                                              |
+------------------------------------------------------------------------------------------------------------------------|
+
+
+
+
+
+------------------------------------------------------------------------------------------------------------------------|
+add                                                                                                                     |
+                                                                                                                        |
+$table->string('name');                                             => Departement and Filiere migrations               |
+$table->foreignId('role_id')->constrained()->onDelete('cascade');   => add_role_id_to_user_table                        |   
+                                                                                                                        |
+> php artisan migrate                                                                                                   |
+------------------------------------------------------------------------------------------------------------------------|
+
+
+
+
+------------------------------------------------------------------------------------------------------------------------|
+> php artisan make:migration createDepartmentUser                                                                       |
+> php artisan make:migration createFiliereUser                                                                          |                                                                                                                         |  
+                                                                                                                        |
+add those to departement_user migration                                                                                 |
+                                                                                                                        |
+    $table->foreignId('user_id')->constrained()->onDelete('cascade');                                                   |
+    $table->foreignId('departement_id')->constrained()->onDelete('cascade');                                            |
+                                                                                                                        |
+                                                                                                                        |
+add those to filiere_user migration |                                                                                   |
+                                                                                                                        |
+    $table->foreignId('user_id')->constrained()->onDelete('cascade');                                                   |
+    $table->foreignId('filiere')->constrained()->onDelete('cascade');                                                   |
+                                                                                                                        |
+> php artisan migrate   user                                                                                            |
+                                                                                                                        |
+------------------------------------------------------------------------------------------------------------------------|
+
+
+> php artisan make:model Quiz --all
+> php artisan make:model Question --all
+> php artisan make:model Option --all
+
+> php artisan migrate
