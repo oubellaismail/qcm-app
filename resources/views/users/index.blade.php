@@ -14,7 +14,7 @@
     <nav class="bg-blue-500 p-4">
         <div class="container mx-auto flex justify-between items-center">
             <a class="text-white text-lg font-bold" href="#">Home</a>
-            <form method="POST" action="{{ route('user.create') }}">
+            <form method="GET" action="{{ route('user.create') }}">
                 @csrf
                 <button type="submit" class="bg-white text-blue-500 px-4 py-2 rounded-md shadow-md hover:bg-blue-100 transition duration-300">Add</button>
             </form>
@@ -29,6 +29,7 @@
                 <tr>
                     <th class="px-6 py-3 bg-gray-100">Name</th>
                     <th class="px-6 py-3 bg-gray-100">Email</th>
+                    <th class="px-6 py-3 bg-gray-100">Role</th>
                     <th class="px-6 py-3 bg-gray-100">Actions</th>
                 </tr>
             </thead>
@@ -38,6 +39,9 @@
                         <td class="px-6 py-4 text-center">{{ $user->name }}</td>
                         <td class="px-6 py-4 text-center">
                             {{ $user->email }}
+                        </td>
+                        <td class="px-6 py-4 text-center">
+                            {{ $user->role->name }}
                         </td>
                         <td class="px-6 py-4 text-center">
                             <a href="{{ route('user.edit', $user->id) }}" class="text-blue-500 hover:underline">

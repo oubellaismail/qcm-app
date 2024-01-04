@@ -17,15 +17,11 @@ use Illuminate\Support\Facades\Http;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
-
 //Route User routes
 
-Route::post('/register',[UserController::class,'create'])->name('user.create');
+Route::get('/user/create',[UserController::class,'create'])->name('user.create');
 Route::get('/user/edit/{user}', [UserController::class, 'edit'])->name('user.edit');
-Route::post('/registrer', [UserController::class, 'store'])->name('user.store');
+Route::post('/user/register', [UserController::class, 'store'])->name('user.store');
 Route::get('/users', [UserController::class, 'index'])->name('user.index');
 Route::delete('/user/destroy/{id}', [UserController::class, 'destroy'])->name('user.destroy');
 Route::post('/user/update/{user}', [UserController::class, 'update'])->name('user.update');

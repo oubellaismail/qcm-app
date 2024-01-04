@@ -10,31 +10,33 @@ class UserController extends Controller
 
 {
     public function index() {
-        $users = User::all();
-        return view('index', compact('users'));
+        $users = User::with('role')->get();
+        return view('users.index', compact('users'));
     }
 
     public function create() {
-        return view('/registrer');
+        return view('users.register');
     }
     
 
     // check register controller !
     public function store (Request $request) {
+
         $validatedData = $request->validate([
             'name' => 'required|string|max:255',
             'email' => 'required|email|unique:users,email',
             'password' => 'required|min:6|confirmed',
         ]);
 
-        $validatedData['password'] = Hash::make($validatedData['password']);
+        $validatedData["role_id"] = $request["role"] == "professor" ? 2 : 3;          
+
         // Create a new user
         $user = User::create($validatedData);
         return redirect('/users')->with('success', 'Registration successful!');
     }
 
     public function edit (User $user){
-        return view('edit', [
+        return view('users.edit', [
             'user' => $user
         ]);
     }
