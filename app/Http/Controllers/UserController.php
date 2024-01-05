@@ -52,13 +52,36 @@ class UserController extends Controller
         return redirect(route('user.index'))->with('success', 'Updating successful!');
 
     }
-
-
     
     public function destroy(string $id) {
         $users=User::find($id);
         $users->delete();
 
         return redirect()->route('user.index')->with('success', 'Task created successfully!');
+    }
+
+    public function login(){
+        return view ('users.login');
+    }
+
+    public function auth(){
+        $form_fields = request()->validate([
+            'email' => 'required|email', 
+            'password' => 'required',
+        ]);
+
+        if(auth()->attempt($form_fields)) {
+            return redirect(route('user.index'));
+        }
+
+        return back() -> withErrors([
+            'error' => 'Invalid email or password'
+        ]);
+
+    }
+
+    public function logout() {
+        auth()->logout();
+        return redirect(route('user.index'));
     }
 }
