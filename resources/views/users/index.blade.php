@@ -9,7 +9,6 @@
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 </head>
 <body class="bg-gray-100">
-
     <nav class="bg-blue-500 p-4">
         <div class="container mx-auto flex justify-between items-center">
             <div>

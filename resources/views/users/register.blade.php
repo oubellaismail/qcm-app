@@ -48,10 +48,42 @@
 
                     <div class="mb-4">
                         <label for="role" class="block text-gray-700 text-sm font-bold mb-2">Role:</label>
-                        <select id="role" name="role" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
-                            <option value="student">Student</option>
-                            <option value="professor">Professor</option>
+                        <select id="role" name="role_id" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"  onchange="toggleFields()">
+                            @foreach ($roles as $role)
+                                @if ($role->id != 1)
+                                    <option value="{{$role->id}}">{{$role->name}}</option>
+                                @endif
+                            @endforeach
                         </select>
+                        @error('role_id')
+                            <p class="text-red-500 text-xs italic">{{ $message }}</p>
+                        @enderror
+                    </div>
+                    
+                    <div class="mb-4" id = "departementField">
+                        <label for="departement" class="block text-gray-700 text-sm font-bold mb-2">Departement:</label>
+                        <select id="departement" name="departement_id" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
+                            <option value="{{null}}"></option>
+                            @foreach ($departements as $departement)
+                                <option value="{{$departement->id}}">{{$departement->name}}</option>
+                            @endforeach
+                        </select>
+                        @error('departement_id')
+                            <p class="text-red-500 text-xs italic">{{ $message }}</p>
+                        @enderror
+                    </div>
+                        
+                    <div class="mb-4" id ="filiereField">
+                        <label for="Filiere" class="block text-gray-700 text-sm font-bold mb-2">Filiere:</label>
+                        <select id="Filiere" name="filiere_id" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
+                            <option value="{{null}}"></option>
+                            @foreach ($filieres as $filiere)
+                                <option value="{{$filiere->id}}">{{$filiere->name}}</option>
+                            @endforeach
+                        </select>
+                        @error('filiere_id')
+                            <p class="text-red-500 text-xs italic">{{ $message }}</p>
+                        @enderror
                     </div>
 
                     <div class="mb-6">
@@ -62,5 +94,25 @@
         </div>
     </div>
 
+    <script>
+        function toggleFields() {
+            var role = document.getElementById('role').value;
+            var departementField = document.getElementById('departementField');
+            var filiereField = document.getElementById('filiereField');
+
+            // Hide both fields initially
+            departementField.style.display = 'none';
+            filiereField.style.display = 'none';
+
+            if (role === "3") {
+                // Show filiere field for students
+                filiereField.style.display = 'block';
+            } else if (role === "2") {
+                // Show departement field for professors
+                departementField.style.display = 'block';
+            }
+        }
+        toggleFields();
+    </script>
 </body>
 </html>

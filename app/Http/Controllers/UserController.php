@@ -2,7 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Role;
 use App\Models\User;
+use App\Models\Filiere;
+use App\Models\Departement;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 
@@ -15,7 +18,11 @@ class UserController extends Controller
     }
 
     public function create() {
-        return view('users.register');
+        return view('users.register', [
+            'departements' => Departement::all(),
+            'filieres' => Filiere::all(),
+            'roles' => Role::all()
+        ]);
     }
     
 
@@ -26,13 +33,29 @@ class UserController extends Controller
             'name' => 'required|string|max:255',
             'email' => 'required|email|unique:users,email',
             'password' => 'required|min:6|confirmed',
+            'role_id' => 'required',
         ]);
+        
+        if ($request['departement_id'] || $request['filiere_id']) {
+            if ($request['role_id'] == 3 ){
+                $validatedData['filiere_id'] = $request['filiere_id'];
+                $validatedData['departement_id'] = Filiere::find($request['filiere_id'])->departement_id;
+            }
+            
+            else {
+                $validatedData['filiere_id'] = NULL;
+                $validatedData['departement_id'] = $request['departement_id'];
+            }
+        }
 
-        $validatedData["role_id"] = $request["role"] == "professor" ? 2 : 3;          
+        else {
+            return back();
+        }
 
+        // dd($validatedData);
         // Create a new user
-        $user = User::create($validatedData);
-        return redirect('/users')->with('success', 'Registration successful!');
+        User::create($validatedData);
+        return redirect(route('user.index'))->with('success', 'Registration successful!');
     }
 
     public function edit (User $user){
