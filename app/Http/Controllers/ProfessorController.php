@@ -27,7 +27,7 @@ class ProfessorController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(StoreProfessorRequest $request)
+    public function store()
     {
         //
     }

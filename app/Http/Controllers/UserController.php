@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Professor;
 use App\Models\Role;
+use App\Models\Student;
 use App\Models\User;
 use App\Models\Filiere;
 use App\Models\Departement;
@@ -29,6 +31,25 @@ class UserController extends Controller
     // check register controller !
     public function store (Request $request) {
 
+        if($request['departement_id']) {
+            $validator = $request->validate([
+                'departement_id' => 'required'
+            ]);
+        }
+
+        else {
+            if ($request['filiere_id']) {
+                $validator = $request->validate([
+                    'filiere_id' => 'required'
+                ]);
+            }
+            else {
+                return back() -> withErrors([
+                    'error' => 'Departement or filiere must be provided'
+                ]);
+            }
+        }
+
         $validatedData = $request->validate([
             'name' => 'required|string|max:255',
             'email' => 'required|email|unique:users,email',
@@ -36,25 +57,20 @@ class UserController extends Controller
             'role_id' => 'required',
         ]);
         
-        if ($request['departement_id'] || $request['filiere_id']) {
-            if ($request['role_id'] == 3 ){
-                $validatedData['filiere_id'] = $request['filiere_id'];
-                $validatedData['departement_id'] = Filiere::find($request['filiere_id'])->departement_id;
-            }
-            
-            else {
-                $validatedData['filiere_id'] = NULL;
-                $validatedData['departement_id'] = $request['departement_id'];
-            }
+        $user = User::create($validatedData);
+        $validator['user_id'] = $user->id;
+        
+        if($request['departement_id']) {
+            Professor::create($validator);
+        }
+        if ($request['filiere_id']) {
+            Student::create($validator);
         }
 
-        else {
-            return back();
-        }
+
 
         // dd($validatedData);
         // Create a new user
-        User::create($validatedData);
         return redirect(route('user.index'))->with('success', 'Registration successful!');
     }
 

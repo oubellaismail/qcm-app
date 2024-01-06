@@ -68,9 +68,6 @@
                                 <option value="{{$departement->id}}">{{$departement->name}}</option>
                             @endforeach
                         </select>
-                        @error('departement_id')
-                            <p class="text-red-500 text-xs italic">{{ $message }}</p>
-                        @enderror
                     </div>
                         
                     <div class="mb-4" id ="filiereField">
@@ -81,7 +78,10 @@
                                 <option value="{{$filiere->id}}">{{$filiere->name}}</option>
                             @endforeach
                         </select>
-                        @error('filiere_id')
+                    </div>
+
+                    <div>
+                        @error('error')
                             <p class="text-red-500 text-xs italic">{{ $message }}</p>
                         @enderror
                     </div>

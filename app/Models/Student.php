@@ -8,6 +8,12 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class Student extends Model
 {
+
+    protected $fillable = [
+        'user_id',
+        'filiere_id'
+    ];
+
     use HasFactory;
     public function user()
     {
