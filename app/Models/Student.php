@@ -23,4 +23,9 @@ class Student extends Model
     public function filiere () {
         return $this->belongsTo(Filiere::class);
     }
+
+    public function grade()
+    {
+        return $this->hasOne(Grade::class);
+    }
 }

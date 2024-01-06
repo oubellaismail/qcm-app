@@ -13,7 +13,7 @@
         <h1 class="text-center text-4xl font-bold mb-8">Register</h1>
 
         <div class="flex justify-center">
-            <div class="w-full md:w-1/2 bg-white shadow-md rounded px-8 py-6">
+            <div class="w-full md:w-1/3 bg-white shadow-md rounded px-8 py-6">
                 <form action="{{ route('user.store')}}" method="POST">
                     @csrf
 

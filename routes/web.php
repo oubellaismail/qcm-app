@@ -35,3 +35,8 @@ Route::get('/quiz/create', [QuizController::class, 'create']);
 Route::post('/quiz/store', [QuizController::class, 'store']);
 Route::post('/quiz/check-answers', [QuizController::class, 'checkAnswers']);
 
+Route::get('/quiz/create', [QuizController::class, 'create'])->name('quiz.create');
+Route::get('/quiz/{quiz}', [QuizController::class, 'show'])->name('quiz.show');
+Route::get('/quizzes', [QuizController::class, 'index']);
+Route::post('/quiz/store', [QuizController::class, 'store'])->name('quiz.store');
+Route::post('/quiz/check-answers', [QuizController::class, 'checkAnswers'])->name('quiz.checkAnswers');
