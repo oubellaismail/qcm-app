@@ -31,7 +31,8 @@ Route::get('/user/login', [UserController::class, 'login'])->name('user.login');
 Route::post('/user/auth', [UserController::class, 'auth'])->name('user.auth');
 Route::delete('/user/logout', [UserController::class, 'logout'])->name('user.logout')->middleware('auth');
 
-Route::get('/quiz', [QuizController::class, 'index']);
-Route::get('/quiz/create', [QuizController::class, 'create']);
-Route::post('/quiz/store', [QuizController::class, 'store']);
-Route::post('/quiz/check-answers', [QuizController::class, 'checkAnswers']);
+Route::get('/quiz/create', [QuizController::class, 'create'])->name('quiz.create');
+Route::get('/quiz/{quiz}', [QuizController::class, 'show'])->name('quiz.show');
+Route::get('/quizzes', [QuizController::class, 'index']);
+Route::post('/quiz/store', [QuizController::class, 'store'])->name('quiz.store');
+Route::post('/quiz/check-answers', [QuizController::class, 'checkAnswers'])->name('quiz.checkAnswers');

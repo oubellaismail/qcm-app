@@ -4,21 +4,32 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
-use App\Models\Question;
+use App\Models\Quiz;
 use App\Models\Option;
+use App\Models\Question;
+use Illuminate\Http\Request;
 
 class QuizController extends Controller
 {
     public function index()
     {
-        $questions = Question::all();
-        return view('users.quiz', compact('questions'));
-        }
+        return view('quizzes.index',[
+            'quizzes' => Quiz::with('questions')->get()
+        ]);
+    }
+
+    public function show(Quiz $quiz){
+
+        session()->put('correct_answer', 0);
+
+        return view('quizzes.quiz', [
+            'quiz' => $quiz::with('questions')->first()
+        ]);
+    }
 
     public function create()
     {
-        return view('users.create');
+        return view('quizzes.create');
     }
 
     public function store(Request $request)
@@ -31,6 +42,8 @@ class QuizController extends Controller
             'quiz_id'=> 1,
         ]);
 
+
+
         // Attach options to the question
         foreach ($request->input('options') as $key => $optionText) {
             $correct = $key == $request->input('correct_option');
@@ -40,7 +53,7 @@ class QuizController extends Controller
             ]);
         }
 
-        return redirect('/quiz')->with('success', 'Question added successfully');
+        return redirect('quizzes.quiz')->with('success', 'Question added successfully');
     }
  
     public function checkAnswers(Request $request)
@@ -53,12 +66,11 @@ class QuizController extends Controller
         // Check correctness
         $isCorrect = $this->checkCorrectness($selectedOptionIds, $correctOptions);
 
-        // Update the correctness counter in the session
-        session(['correctness_counter' => session('correctness_counter') + $isCorrect]);
-         dd(session(['correctness_counter']));
-        // You can handle the correctness result as needed, such as storing it in the database or displaying a message
-        // For now, let's just redirect back to the quiz page
-        return redirect('/quiz');
+        if($isCorrect) {
+            session()->increment('correct_answer');
+        }
+
+        return redirect('quizzes.quiz');
     }
 
     private function getCorrectOptions($selectedOptionIds)
@@ -73,7 +85,6 @@ class QuizController extends Controller
 
     private function checkCorrectness($selectedOptionIds, $correctOptions)
     {
-        // Check if the selected options match the correct options
         sort($selectedOptionIds);
         sort($correctOptions);
 
