@@ -1,66 +1,84 @@
 <?php
 
+// QuizController.php
+
 namespace App\Http\Controllers;
 
-use App\Http\Requests\StoreQuizRequest;
-use App\Http\Requests\UpdateQuizRequest;
-use App\Models\Quiz;
+use Illuminate\Http\Request;
+use App\Models\Question;
+use App\Models\Option;
 
 class QuizController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
     public function index()
     {
-        //
-    }
+        $questions = Question::all();
+        return view('users.quiz', compact('questions'));
+        }
 
-    /**
-     * Show the form for creating a new resource.
-     */
     public function create()
     {
-        //
+        return view('users.create');
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
-    public function store(StoreQuizRequest $request)
+    public function store(Request $request)
     {
-        //
+        // Validate the form data
+
+        // Create a new question
+        $question = Question::create([
+            'description' => $request->input('question_text'),
+            'quiz_id'=> 1,
+        ]);
+
+        // Attach options to the question
+        foreach ($request->input('options') as $key => $optionText) {
+            $correct = $key == $request->input('correct_option');
+            $question->options()->create([
+                'option_text' => $optionText,
+                'is_correct' => $correct,
+            ]);
+        }
+
+        return redirect('/quiz')->with('success', 'Question added successfully');
+    }
+ 
+    public function checkAnswers(Request $request)
+    {
+        $selectedOptionIds = $request->input('selected_options');
+
+        // Validate the selected options and get the correct options from the database
+        $correctOptions = $this->getCorrectOptions($selectedOptionIds);
+
+        // Check correctness
+        $isCorrect = $this->checkCorrectness($selectedOptionIds, $correctOptions);
+
+        // Update the correctness counter in the session
+        session(['correctness_counter' => session('correctness_counter') + $isCorrect]);
+         dd(session(['correctness_counter']));
+        // You can handle the correctness result as needed, such as storing it in the database or displaying a message
+        // For now, let's just redirect back to the quiz page
+        return redirect('/quiz');
     }
 
-    /**
-     * Display the specified resource.
-     */
-    public function show(Quiz $quiz)
+    private function getCorrectOptions($selectedOptionIds)
     {
-        //
+        // Query the database to get the correct options for the selected question
+        // Assuming the options table has a column named 'is_correct' and it should be 1
+        return Option::whereIn('id', $selectedOptionIds)
+            ->where('is_correct', 1)
+            ->pluck('id')
+            ->toArray();
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(Quiz $quiz)
+    private function checkCorrectness($selectedOptionIds, $correctOptions)
     {
-        //
-    }
+        // Check if the selected options match the correct options
+        sort($selectedOptionIds);
+        sort($correctOptions);
 
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(UpdateQuizRequest $request, Quiz $quiz)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(Quiz $quiz)
-    {
-        //
+        return $selectedOptionIds == $correctOptions ? 1 : 0;
     }
 }
+
+
