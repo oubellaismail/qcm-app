@@ -26,6 +26,6 @@ Route::get('/users', [UserController::class, 'index'])->name('user.index');
 Route::delete('/user/destroy/{id}', [UserController::class, 'destroy'])->name('user.destroy');
 Route::post('/user/update/{user}', [UserController::class, 'update'])->name('user.update');
 Route::get('/user/login', [UserController::class, 'login'])->name('user.login');
-Route::post('/user/auth', [UserController::class, 'auth']);
+Route::post('/user/auth', [UserController::class, 'auth'])->name('user.auth');
 Route::delete('/user/logout', [UserController::class, 'logout'])->name('user.logout');
 
