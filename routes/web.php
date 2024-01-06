@@ -27,11 +27,7 @@ Route::post('/user/register', [UserController::class, 'store'])->name('user.stor
 Route::get('/users', [UserController::class, 'index'])->name('user.index');
 Route::delete('/user/destroy/{id}', [UserController::class, 'destroy'])->name('user.destroy');
 Route::post('/user/update/{user}', [UserController::class, 'update'])->name('user.update');
-Route::get('/user/login', [UserController::class, 'login'])->name('user.login')->middleware('guest');
+Route::get('/user/login', [UserController::class, 'login'])->name('user.login');
 Route::post('/user/auth', [UserController::class, 'auth'])->name('user.auth');
-Route::delete('/user/logout', [UserController::class, 'logout'])->name('user.logout');
-Route::get('/quiz', [QuizController::class, 'index']);
-Route::get('/quiz/create', [QuizController::class, 'create']);
-Route::post('/quiz/store', [QuizController::class, 'store']);
-Route::post('/quiz/check-answers', [QuizController::class, 'checkAnswers']);
+Route::delete('/user/logout', [UserController::class, 'logout'])->name('user.logout')->middleware('auth');
 
