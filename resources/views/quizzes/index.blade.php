@@ -21,7 +21,7 @@
     </nav>
 
     <div class="container mx-auto py-8">
-        <h1 class="text-3xl font-bold mb-8">User List</h1>
+        <h1 class="text-3xl font-bold mb-8">Quiz List</h1>
 
         <table class="w-full border-collapse border border-gray-300">
             <thead>
@@ -55,6 +55,9 @@
                                     Delete
                                 </button>
                             </form>
+                            <a href="{{route('question.create', $quiz->id)}}" class="text-blue-500 hover:underline">
+                                Add Question
+                            </a>
                         </td>
                     </tr>
                 @endforeach

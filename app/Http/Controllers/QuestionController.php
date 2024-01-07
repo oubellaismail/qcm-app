@@ -2,9 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Quiz;
+use App\Models\Question;
+use Illuminate\Http\Request;
 use App\Http\Requests\StoreQuestionRequest;
 use App\Http\Requests\UpdateQuestionRequest;
-use App\Models\Question;
 
 class QuestionController extends Controller
 {
@@ -19,17 +21,37 @@ class QuestionController extends Controller
     /**
      * Show the form for creating a new resource.
      */
-    public function create()
+    public function create(Quiz $quiz)
     {
-        //
+        return view('questions.create', [
+            'quiz' => $quiz,
+        ]);
     }
 
     /**
      * Store a newly created resource in storage.
      */
-    public function store(StoreQuestionRequest $request)
+    public function store(Quiz $quiz)
     {
-        //
+        $validator = request()->validate([
+            'description' => 'required',
+        ]);
+
+        $validator['quiz_id'] = $quiz->id;
+
+        $question = Question::create($validator);
+
+        // Attach options to the question
+        foreach (request()->input('options') as $key => $optionText) {
+            $correct = $key == request()->input('correct_option');
+            $question->options()->create([
+                'option_text' => $optionText,
+                'is_correct' => $correct,
+            ]);
+        }
+
+
+        return back()->with('success', 'Question added successfully');
     }
 
     /**

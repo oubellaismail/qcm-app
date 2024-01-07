@@ -1,11 +1,12 @@
 <?php
 
 use App\Http\Controllers\Controller;
-use App\Http\Controllers\RegisterController;
-use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Http;
+use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\QuizController;
+use App\Http\Controllers\UserController;
+use App\Http\Controllers\QuestionController;
+use App\Http\Controllers\RegisterController;
 
 
 /*
@@ -30,13 +31,17 @@ Route::post('/user/update/{user}', [UserController::class, 'update'])->name('use
 Route::get('/user/login', [UserController::class, 'login'])->name('user.login')->middleware('guest');
 Route::post('/user/auth', [UserController::class, 'auth'])->name('user.auth');
 Route::delete('/user/logout', [UserController::class, 'logout'])->name('user.logout');
-Route::get('/quiz', [QuizController::class, 'index']);
+
+Route::get('/quiz', [QuizController::class, 'index'])->name('quiz.index');
 Route::get('/quiz/create', [QuizController::class, 'create']);
 Route::post('/quiz/store', [QuizController::class, 'store']);
 Route::post('/quiz/check-answers', [QuizController::class, 'checkAnswers']);
-
 Route::get('/quiz/create', [QuizController::class, 'create'])->name('quiz.create');
 Route::get('/quiz/{quiz}', [QuizController::class, 'show'])->name('quiz.show');
-Route::get('/quizzes', [QuizController::class, 'index']);
+Route::get('/quizzes', [QuizController::class, 'index'])->name('quizzes.index');
 Route::post('/quiz/store', [QuizController::class, 'store'])->name('quiz.store');
 Route::post('/quiz/check-answers', [QuizController::class, 'checkAnswers'])->name('quiz.checkAnswers');
+
+Route::get('/question/create/{quiz}', [QuestionController::class, 'create'])->name('question.create');
+Route::post('/question/store/{quiz}', [QuestionController::class, 'store'])->name('question.store');
+Route::post('/question/submit/{questions}', [QuizController::class, 'submit'])->name('question.submit');
