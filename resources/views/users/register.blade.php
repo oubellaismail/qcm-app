@@ -1,13 +1,5 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Register</title>
-    <!-- Link Tailwind CSS (CDN) -->
-    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
-</head>
-<body class="bg-gray-100">
+<x-layout>
+<div class="bg-gray-100">
 
     <div class="container mx-auto mt-5">
         <h1 class="text-center text-4xl font-bold mb-8">Register</h1>
@@ -114,5 +106,5 @@
         }
         toggleFields();
     </script>
-</body>
-</html>
+</div>
+</x-layout>

@@ -1,25 +1,5 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>quiz List</title>
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
-    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-</head>
-<body class="bg-gray-100">
-
-    <nav class="bg-blue-500 p-4">
-        <div class="container mx-auto flex justify-between items-center">
-                <form method="GET" action="{{ route('quiz.create') }}">
-                    @csrf
-                    <button type="submit" class="bg-white text-blue-500 px-4 py-2 rounded-md shadow-md hover:bg-blue-100 transition duration-300">Add</button>
-                </form>
-            </div>
-        </div>
-    </nav>
-
+<x-layout>
+    <div class="bg-gray-100">
     <div class="container mx-auto py-8">
         <h1 class="text-3xl font-bold mb-8">Quiz List</h1>
 
@@ -65,5 +45,6 @@
         </table>
     </div>
 
-</body>
-</html>
+</div>
+
+</x-layout>

@@ -1,13 +1,5 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Update</title>
-    <!-- Link Tailwind CSS (CDN) -->
-    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
-</head>
-<body class="bg-gray-100">
+<x-layout>
+<div class="bg-gray-100">
 
     <nav class="bg-blue-500 p-4">
         <div class="container mx-auto flex justify-between items-center">
@@ -47,5 +39,6 @@
         </div>
     </div>
 
-</body>
-</html>
+</div>
+
+</x-layout>

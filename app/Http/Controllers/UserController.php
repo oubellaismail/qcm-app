@@ -110,7 +110,10 @@ class UserController extends Controller
         ]);
 
         if(auth()->attempt($form_fields)) {
-            return redirect(route('user.index'));
+            if(auth()->user()->role->id == 1)
+                return redirect(route('user.index'));
+            else 
+                return redirect(route('quiz.index'));
         }
 
         return back() -> withErrors([
