@@ -1,12 +1,5 @@
 <x-layout>
 <div class="bg-gray-100">
-
-    <nav class="bg-blue-500 p-4">
-        <div class="container mx-auto flex justify-between items-center">
-            <a class="text-white text-lg font-bold" href="{{ route('user.index') }}">Home</a>
-        </div>
-    </nav>
-
     <div class="container mx-auto mt-5">
         <h1 class="text-center text-4xl font-bold mb-8">Update</h1>
 
@@ -22,7 +15,6 @@
                             <p class="text-red-500 text-xs italic">{{ $message }}</p>
                         @enderror
                     </div>
-
                     <div class="mb-4">
                         <label for="email" class="block text-gray-700 text-sm font-bold mb-2">Email:</label>
                         <input type="email" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline @error('email') border-red-500 @enderror" id="email" name="email" value="{{ $user->email }}">

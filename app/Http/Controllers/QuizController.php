@@ -14,18 +14,38 @@ class QuizController extends Controller
 {
     public function index()
     {
+        if (auth()->user()->role->id != 2) {
+            abort(404);
+        }
         return view('quizzes.index',[
-            'quizzes' => Quiz::with('questions')->get()
+            'quizzes' => Quiz::where('user_id', auth()->user()->id)->get(),
         ]);
     }
 
     public function show(Quiz $quiz){
-        return view('quizzes.quiz', [
+        if (auth()->user()->role->id != 2) {
+            abort(404);
+        }
+        return view('quizzes.show', [
+            'quiz' => $quiz,
+        ]);
+    }
+    public function pass(Quiz $quiz)
+    {
+        if (auth()->user()->role->id != 3) {
+            abort(404);
+        }
+
+        return view('students.quiz', [
             'questions' => $quiz->questions()->with('options')->get(),
         ]);
     }
+
     public function create()
     {
+        if (auth()->user()->role->id != 2) {
+            abort(404);
+        }
         return view('quizzes.create');
     }
 

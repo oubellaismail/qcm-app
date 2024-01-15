@@ -15,6 +15,9 @@ class UserController extends Controller
 
 {
     public function index() {
+        if (auth()->user()->role->id != 1) {
+            abort(404);
+        }
         $users = User::with('role')->get();
         return view('users.index', compact('users'));
     }
@@ -75,6 +78,9 @@ class UserController extends Controller
     }
 
     public function edit (User $user){
+        if (auth()->user()->role->id != 1) {
+            abort(404);
+        }
         return view('users.edit', [
             'user' => $user
         ]);
@@ -113,7 +119,10 @@ class UserController extends Controller
             if(auth()->user()->role->id == 1)
                 return redirect(route('user.index'));
             else 
-                return redirect(route('quiz.index'));
+                if (auth()->user()->role->id == 2)
+                    return redirect(route('quiz.index'));
+                else 
+                    return redirect(view ('student.index'));
         }
 
         return back() -> withErrors([

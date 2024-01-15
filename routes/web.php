@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\QuizController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\StudentController;
 use App\Http\Controllers\QuestionController;
 use App\Http\Controllers\RegisterController;
 
@@ -37,6 +38,7 @@ Route::get('/quiz/create', [QuizController::class, 'create'])->middleware('auth'
 Route::post('/quiz/store', [QuizController::class, 'store'])->middleware('auth');
 Route::post('/quiz/check-answers', [QuizController::class, 'checkAnswers'])->middleware('auth');
 Route::get('/quiz/create', [QuizController::class, 'create'])->name('quiz.create')->middleware('auth');
+Route::get('/quiz/pass/{quiz}', [QuizController::class, 'pass'])->name('quiz.pass')->middleware('auth');
 Route::get('/quiz/{quiz}', [QuizController::class, 'show'])->name('quiz.show')->middleware('auth');
 Route::get('/quizzes', [QuizController::class, 'index'])->name('quizzes.index')->middleware('auth');
 Route::post('/quiz/store', [QuizController::class, 'store'])->name('quiz.store')->middleware('auth');
@@ -46,3 +48,5 @@ Route::post('/quiz/submit', [QuizController::class, 'submit'])->name('quiz.submi
 Route::get('/question/create/{quiz}', [QuestionController::class, 'create'])->name('question.create')->middleware('auth');
 Route::post('/question/store/{quiz}', [QuestionController::class, 'store'])->name('question.store')->middleware('auth');
 Route::post('/question/submit/{questions}', [QuizController::class, 'submit'])->name('question.submit')->middleware('auth');
+
+Route::get('/student/index', [StudentController::class, 'index'])->name('student.index')->middleware('auth');

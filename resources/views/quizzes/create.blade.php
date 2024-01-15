@@ -1,4 +1,4 @@
-<x-layout>
+<x-prof-layout>
 <div class="bg-gray-100">
 
     <div class="container mx-auto mt-5">
@@ -40,4 +40,4 @@
     </div>
 </div>
 
-</x-layout>
+</x-prof-layout>

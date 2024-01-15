@@ -2,9 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Quiz;
+use App\Models\Student;
 use App\Http\Requests\StoreStudentRequest;
 use App\Http\Requests\UpdateStudentRequest;
-use App\Models\Student;
 
 class StudentController extends Controller
 {
@@ -13,7 +14,12 @@ class StudentController extends Controller
      */
     public function index()
     {
-        //
+        if (auth()->user()->role->id != 3) {
+            abort(404);
+        }
+        return view('students.index', [
+            'quizzes' => Quiz::all(),
+        ]);
     }
 
     /**
@@ -61,6 +67,6 @@ class StudentController extends Controller
      */
     public function destroy(Student $student)
     {
-        //
+         //
     }
 }
