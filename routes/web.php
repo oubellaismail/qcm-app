@@ -59,5 +59,11 @@ Route::delete('/departments/delete/{departement}', [DepartementController::class
 Route::get('/departments/{departement}', [DepartementController::class, 'show'])->name('departement.show');
 Route::post('/departments/store', [DepartementController::class, 'store'])->name('department.store');
 
-
 Route::get('/filieres/', [FiliereController::class, 'index'])->name('filiere.index')->middleware('auth');
+Route::post('/filieres/post', [FiliereController::class, 'post'])->name('filiere.post')->middleware('auth');
+Route::get('/filieres/create', [FiliereController::class, 'create'])->name('filiere.create')->middleware('auth');
+Route::get('/filieres/students/{filiere}', [FiliereController::class, 'students'])->name('filiere.students')->middleware('auth');
+Route::get('/filieres/professors/{filiere}', [FiliereController::class, 'professors'])->name('filiere.professors')->middleware('auth');
+
+Route::get('/filiere/{filiere}/noprofessors', [FiliereController::class, 'notAssignedProfessors'])->name('filiere.no-assign-professors');
+Route::post('filiere/{filiere}/assign-professors', [FiliereController::class, 'assignProfessors'])->name('filiere.assign-professors');

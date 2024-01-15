@@ -1,7 +1,7 @@
 <x-layout>
     <div class="bg-gray-100">
         <div class="container mx-auto py-8">
-            <h1 class="text-3xl font-bold mb-8">Field of Study List</h1>
+            <h1 class="text-3xl font-bold mb-8"> Field of Study List</h1>
 
             <table class="w-full border-collapse border border-gray-300">
                 <!-- Table Header -->
@@ -17,11 +17,11 @@
                         <tr class="hover:bg-gray-100 transition-colors">
                             <td class="px-6 py-4">{{ $filiere->name }}</td>
                             <td class="px-6 py-4">
-                                <a href="" class="text-blue-500 hover:underline">
+                                <a href="{{route('filiere.students', $filiere->id)}}" class="text-blue-500 hover:underline">
                                     See Students
                                 </a>
-                                <a href="" class="text-blue-500 hover:underline">
-                                    Assign Professor
+                                <a href="{{route('filiere.professors', $filiere->id)}}" class="text-blue-500 hover:underline">
+                                    See Professors
                                 </a>
                             </td>
                         </tr>

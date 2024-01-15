@@ -26,7 +26,7 @@ class Professor extends Model
         return $this->belongsTo(Departement::class);
     }
 
-    public function filiers(){
+    public function filieres(){
         return $this->hasMany(Filiere::class);
     }
 }
