@@ -19,15 +19,17 @@
                 <a href="{{route('departement.index')}}" class="text-white ml-4">Departments</a>
                 <a href="{{route('filiere.index')}}" class="text-white ml-4">Filieres</a>
             </div>
+            <div class="flex items-center">
+                    <div class="text-white mr-4">Hello, Professor {{ auth()->user()->name }}</div>
+                    <form action="{{route('user.logout')}}" method="POST">
+                        @csrf
+                        @method('DELETE')
+                        <button type="submit" class="text-white">Logout</button>
+                    </form>
+            </div>
         </div>
     </nav>
     <main class="container mx-auto py-8">
-        {{-- <div class="flex justify-end mb-4">
-            <form method="GET" action="{{route('user.create')}}">
-                @csrf
-                <button type="submit" class="bg-blue-500 text-white px-4 py-2 rounded-md shadow-md hover:bg-blue-600 transition duration-300">Add</button>
-            </form>
-        </div> --}}
         {{$slot}}
     </main>
 </body>

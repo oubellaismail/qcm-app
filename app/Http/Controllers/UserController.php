@@ -122,7 +122,7 @@ class UserController extends Controller
                 if (auth()->user()->role->id == 2)
                     return redirect(route('quiz.index'));
                 else 
-                    return redirect(view ('student.index'));
+                    return redirect(route('student.index'));
         }
 
         return back() -> withErrors([

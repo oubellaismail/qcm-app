@@ -36,6 +36,13 @@ class QuizController extends Controller
             abort(404);
         }
 
+        $id = auth()->user()->student->id;
+        $grade = Grade::where('student_id', $id)->where('quiz_id', $quiz->id)->first();
+
+        if ($grade) {
+            return back();
+        }
+
         return view('students.quiz', [
             'questions' => $quiz->questions()->with('options')->get(),
         ]);
@@ -69,9 +76,10 @@ class QuizController extends Controller
             'grade' => request()->input('grade'),
             'quiz_id' => request()->input('quiz_id'),
             'student_id' => auth()->user()->student->id,
+            'is_passed' => true
         ]);
 
-        return redirect(route('quizzes.index'));
+        return redirect(route('student.index'));
     }
 }
 

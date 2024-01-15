@@ -26,15 +26,9 @@
                     </form>
                 @endguest
             </div>
-            <div>
-                <form method="GET" action="{{ route('quiz.create') }}">
-                    @csrf
-                    <button type="submit" class="bg-white text-blue-500 px-4 py-2 rounded-md shadow-md hover:bg-blue-100 transition duration-300">Add</button>
-                </form>
-            </div>
         </div>
     </nav>
-    <main>
+    <main class="container mx-auto py-8">
         {{$slot}}
     </main>
 </body>

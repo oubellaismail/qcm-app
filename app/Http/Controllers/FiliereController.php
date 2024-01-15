@@ -59,10 +59,13 @@ class FiliereController extends Controller
 
     public function assignProfessors(Request $request, Filiere $filiere)
     {
+        // Validate the form data if needed
+
+        // Get the selected professor IDs from the form
         $selectedProfessors = $request->input('professors', []);
 
         // Attach the selected professors to the filiere
-        $filiere->professors()->sync($selectedProfessors);
+        $filiere->professors()->attach($selectedProfessors);
 
         // Redirect back or to a success page
         return redirect()->back()->with('success', 'Professors assigned successfully');

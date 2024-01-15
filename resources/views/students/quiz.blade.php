@@ -1,4 +1,4 @@
-<x-layout>
+<x-std-layout>
     <div class="bg-gray-100">
         <div class="container mx-auto mt-5">
             <h1 class="text-center text-4xl font-bold mb-8">Questions List</h1>
@@ -69,4 +69,4 @@
 
         displayQuestion();
     </script>
-</x-layout>
+</x-std-layout>
