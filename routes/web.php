@@ -1,6 +1,8 @@
 <?php
 
 use App\Http\Controllers\Controller;
+use App\Http\Controllers\DepartementController;
+use App\Http\Controllers\FiliereController;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\QuizController;
@@ -50,3 +52,12 @@ Route::post('/question/store/{quiz}', [QuestionController::class, 'store'])->nam
 Route::post('/question/submit/{questions}', [QuizController::class, 'submit'])->name('question.submit')->middleware('auth');
 
 Route::get('/student/index', [StudentController::class, 'index'])->name('student.index')->middleware('auth');
+
+Route::get('/departements/', [DepartementController::class, 'index'])->name('departement.index')->middleware('auth');
+Route::get('/departments/create', [DepartementController::class, 'create'])->name('departement.create');
+Route::delete('/departments/delete/{departement}', [DepartementController::class, 'destroy'])->name('department.destroy');
+Route::get('/departments/{departement}', [DepartementController::class, 'show'])->name('departement.show');
+Route::post('/departments/store', [DepartementController::class, 'store'])->name('department.store');
+
+
+Route::get('/filieres/', [FiliereController::class, 'index'])->name('filiere.index')->middleware('auth');

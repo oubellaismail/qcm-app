@@ -13,23 +13,32 @@ class DepartementController extends Controller
      */
     public function index()
     {
-        //
+        return view('departements.index', [
+            'departments' => Departement::all()
+        ]);
     }
+
 
     /**
      * Show the form for creating a new resource.
      */
     public function create()
     {
-        //
+        return view('departements.create');
     }
 
     /**
      * Store a newly created resource in storage.
      */
-    public function store(StoreDepartementRequest $request)
+    public function store()
     {
-        //
+        $formfieldes = request()->validate([
+            'name' => 'required'
+        ]);
+
+        Departement::create($formfieldes);
+
+        return redirect(route('departement.index'));
     }
 
     /**
@@ -37,7 +46,11 @@ class DepartementController extends Controller
      */
     public function show(Departement $departement)
     {
-        //
+        $departement->load('professors');
+
+        return view('departements.show', [
+            'department' => $departement,
+        ]);
     }
 
     /**
@@ -61,6 +74,9 @@ class DepartementController extends Controller
      */
     public function destroy(Departement $departement)
     {
-        //
+        $departement->delete();
+
+        return redirect()->route('departement.index');
     }
+
 }

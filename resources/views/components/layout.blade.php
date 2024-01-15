@@ -15,26 +15,19 @@
                 <a class="text-white text-lg font-bold" href="{{route('user.index')}}">Home</a>
             </div>
             <div class="flex items-center">
-                @guest
-                    <a href="{{route('user.login')}}" class="text-white">Login</a>
-                @else
-                    <div class="text-white mr-4">Hello, {{ (auth()->user()->role->id == 1 ? "admin " : "").auth()->user()->name }}</div>
-                    <form action="{{route('user.logout')}}" method="POST">
-                        @csrf
-                        @method('DELETE')
-                        <button type="submit" class="text-white">Logout</button>
-                    </form>
-                @endguest
-            </div>
-            <div>
-                <form method="GET" action="{{ auth()->user()->role->id == 1 ? route('user.create') : route('quiz.create') }}">
-                    @csrf
-                    <button type="submit" class="bg-white text-blue-500 px-4 py-2 rounded-md shadow-md hover:bg-blue-100 transition duration-300">Add</button>
-                </form>
+                <a href="" class="text-white">Users</a>
+                <a href="{{route('departement.index')}}" class="text-white ml-4">Departments</a>
+                <a href="{{route('filiere.index')}}" class="text-white ml-4">Filieres</a>
             </div>
         </div>
     </nav>
-    <main>
+    <main class="container mx-auto py-8">
+        {{-- <div class="flex justify-end mb-4">
+            <form method="GET" action="{{route('user.create')}}">
+                @csrf
+                <button type="submit" class="bg-blue-500 text-white px-4 py-2 rounded-md shadow-md hover:bg-blue-600 transition duration-300">Add</button>
+            </form>
+        </div> --}}
         {{$slot}}
     </main>
 </body>
