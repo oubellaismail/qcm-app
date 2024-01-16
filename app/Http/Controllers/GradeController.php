@@ -13,7 +13,13 @@ class GradeController extends Controller
      */
     public function index()
     {
-        //
+        $userId = auth()->id();
+
+        return view('grades.index', [
+            'grades' => Grade::whereHas('quiz', function ($query) use ($userId) {
+                $query->where('user_id', $userId);
+            })->with('student', 'quiz')->get(),
+        ]);
     }
 
     /**

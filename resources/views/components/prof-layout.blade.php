@@ -18,6 +18,7 @@
                 @guest
                     <a href="{{route('user.login')}}" class="text-white">Login</a>
                 @else
+                    <a href="{{route('grade.index')}}" class="text-white mr-4">Grades  </a>
                     <div class="text-white mr-4">Hello, Professor {{ auth()->user()->name }}</div>
                     <form action="{{route('user.logout')}}" method="POST">
                         @csrf
