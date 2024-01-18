@@ -22,8 +22,8 @@
                 <tbody>
                     @foreach ($filiere->professors as $professor)
                         <tr class="hover:bg-gray-100 transition-colors">
-                            <td class="px-6 py-4">{{ $professor->user->name }}</td>
-                            <td class="px-6 py-4">{{ $professor->user->email }}</td>
+                            <td class="px-6 py-4 text-center">{{ $professor->user->name }}</td>
+                            <td class="px-6 py-4 text-center">{{ $professor->user->email }}</td>
                             <!-- Add more columns if needed -->
                         </tr>
                     @endforeach

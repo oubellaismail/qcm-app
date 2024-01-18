@@ -30,6 +30,24 @@ class QuizController extends Controller
             'quiz' => $quiz,
         ]);
     }
+
+    public function toggle(Quiz $quiz)
+    {
+
+        if($quiz->questions->isEmpty() ){
+            return back() -> withErrors ([
+                'empty' => 'You cannot assign an empty Quiz ! ',
+            ]);
+        }
+
+        $quiz->update([
+            'isVisible' => !$quiz->isVisible,
+        ]);
+
+        return redirect()->route('quiz.index');
+    }
+
+
     public function pass(Quiz $quiz)
     {
         if (auth()->user()->role->id != 3) {
@@ -64,6 +82,7 @@ class QuizController extends Controller
         ]);
 
         $validator['user_id'] = auth()->user()->id;
+        $validator['professor_id'] = auth()->user()->professor->id;
 
         Quiz::create($validator);
 

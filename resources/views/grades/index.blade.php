@@ -14,9 +14,9 @@
                 <tbody>
                     @foreach ($grades as $grade)
                         <tr class="hover:bg-gray-100 transition-colors">
-                            <td class="px-6 py-4">{{ $grade->student->user->name }}</td>
-                            <td class="px-6 py-4">{{ $grade->quiz->title }}</td>
-                            <td class="px-6 py-4">{{ $grade->grade }}</td>
+                            <td class="px-6 py-4 text-center">{{ $grade->student->user->name }}</td>
+                            <td class="px-6 py-4 text-center">{{ $grade->quiz->title }}</td>
+                            <td class="px-6 py-4 text-center">{{ $grade->grade }}</td>
                         </tr>
                     @endforeach
                 </tbody>

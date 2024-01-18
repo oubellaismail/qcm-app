@@ -43,14 +43,11 @@ Route::prefix('/user')->controller(UserController::class)->group(function(){
 Route::prefix('/quiz')->controller(UserController::class)->group(function(){
 
     Route::get('', [QuizController::class, 'index'])->name('quiz.index')->middleware('auth');
-    Route::get('/create', [QuizController::class, 'create'])->middleware('auth');
-    Route::post('/store', [QuizController::class, 'store'])->middleware('auth');
-    Route::post('/check-answers', [QuizController::class, 'checkAnswers'])->middleware('auth');
+    Route::post('/toggle/{quiz}', [QuizController::class, 'toggle'])->name('quiz.toggleVisbility')->middleware('auth');
+    Route::post('/store', [QuizController::class, 'store'])->name('quiz.store')->middleware('auth');
     Route::get('/create', [QuizController::class, 'create'])->name('quiz.create')->middleware('auth');
     Route::get('/pass/{quiz}', [QuizController::class, 'pass'])->name('quiz.pass')->middleware('auth');
     Route::get('/{quiz}', [QuizController::class, 'show'])->name('quiz.show')->middleware('auth');
-    Route::post('/store', [QuizController::class, 'store'])->name('quiz.store')->middleware('auth');
-    Route::post('/check-answers', [QuizController::class, 'checkAnswers'])->name('quiz.checkAnswers')->middleware('auth');
     Route::post('/submit', [QuizController::class, 'submit'])->name('quiz.submit')->middleware('auth');
     Route::delete('/destroy/{quiz}', [QuizController::class, 'destroy'])->name('quiz.destroy')->middleware('auth');
 });

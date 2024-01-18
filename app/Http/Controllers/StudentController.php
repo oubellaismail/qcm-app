@@ -17,10 +17,21 @@ class StudentController extends Controller
         if (auth()->user()->role->id != 3) {
             abort(404);
         }
-        return view('students.index', [
-            'quizzes' => Quiz::all(),
-        ]);
+
+        $userFiliereId = auth()->user()->student->filiere_id;
+
+        $quizzes = Quiz::where('isVisible', true)
+            ->whereHas('professor', function ($query) use ($userFiliereId) {
+                $query->whereHas('filieres', function ($query) use ($userFiliereId) {
+                    $query->where('filiere_id', $userFiliereId);
+                });
+            })
+            ->get();
+
+        return view('students.index', compact('quizzes'));
     }
+
+
 
     /**
      * Show the form for creating a new resource.

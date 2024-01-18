@@ -15,6 +15,7 @@
                 <tr>
                     <th class="px-6 py-3 bg-gray-100">Title</th>
                     <th class="px-6 py-3 bg-gray-100">Descripiton</th>
+                    <th class="px-6 py-3 bg-gray-100">Status</th>
                     <th class="px-6 py-3 bg-gray-100">Actions</th>
                 </tr>
             </thead>
@@ -28,6 +29,18 @@
                         </td>
                         <td class="px-6 py-4 text-center">
                             {{ $quiz->description }}
+                        </td>
+                        <td class="px-6 py-4 text-center">
+                            <form action="{{route('quiz.toggleVisbility', $quiz->id)}}" method="post" class="flex justify-center">
+                                @csrf
+                                <button href="" class="block py-2 px-2 rounded-md text-white>
+                                    {{ $quiz->isVisible ? 'bg-blue-500' : 'bg-red-500' }}">
+                                    {{ $quiz->isVisible ? 'Visible' : 'Not Visible' }}
+                                </button>
+                            </form>
+                            @error('empty')
+                                <p class="text-red-500 text-xs italic">{{ $message }}</p>
+                            @enderror
                         </td>
                         <td class="px-6 py-4 text-center">
                             <a href="" class="text-blue-500 hover:underline">

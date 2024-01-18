@@ -23,9 +23,9 @@
                 <tbody>
                     @foreach ($filieres as $filiere)
                         <tr class="hover:bg-gray-100 transition-colors">
-                            <td class="px-6 py-4">{{ $filiere->name }}</td>
-                            <td class="px-6 py-4">{{ $filiere->departement->name }}</td>
-                            <td class="px-6 py-4">
+                            <td class="px-6 py-4 text-center">{{ $filiere->name }}</td>
+                            <td class="px-6 py-4 text-center">{{ $filiere->departement->name }}</td>
+                            <td class="px-6 py-4 text-center">
                                 <a href="{{route('filiere.students', $filiere->id)}}" class="text-blue-500 hover:underline">
                                     See Students
                                 </a>

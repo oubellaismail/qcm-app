@@ -26,7 +26,13 @@ class Professor extends Model
         return $this->belongsTo(Departement::class);
     }
 
-    public function filieres(){
-        return $this->hasMany(Filiere::class);
+    public function filieres()
+    {
+        return $this->belongsToMany(Filiere::class, 'filiere_professor', 'professor_id', 'filiere_id');
+    }
+
+    public function quizzes()
+    {
+        return $this->hasMany(Quiz::class);
     }
 }

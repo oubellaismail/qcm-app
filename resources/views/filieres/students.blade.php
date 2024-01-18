@@ -16,8 +16,8 @@
                 <tbody>
                     @foreach ($filiere->students as $student)
                         <tr class="hover:bg-gray-100 transition-colors">
-                            <td class="px-6 py-4">{{ $student->user->name }}</td>
-                            <td class="px-6 py-4">{{ $student->user->email }}</td>
+                            <td class="px-6 py-4 text-center">{{ $student->user->name }}</td>
+                            <td class="px-6 py-4 text-center">{{ $student->user->email }}</td>
                             <!-- Add more columns if needed -->
                         </tr>
                     @endforeach

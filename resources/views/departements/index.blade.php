@@ -18,8 +18,8 @@
                 <tbody>
                     @foreach ($departments as $department)
                         <tr class="hover:bg-gray-100 transition-colors">
-                            <td class="px-6 py-4">{{ $department->name }}</td>
-                            <td class="px-6 py-4 flex">
+                            <td class="px-6 py-4 text-center">{{ $department->name }}</td>
+                            <td class="px-6 py-4 flex  justify-center">
                                 <form method="POST" action="{{ route('department.destroy', $department->id) }}">
                                     @csrf
                                     @method('DELETE')
