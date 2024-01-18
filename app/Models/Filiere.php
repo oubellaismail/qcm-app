@@ -9,6 +9,8 @@ class Filiere extends Model
 {
     use HasFactory;
 
+    protected $fillable = ['name', 'departement_id'];
+
     public function students(){
         return $this->hasMany(Student::class);
     }

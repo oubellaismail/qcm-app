@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Departement;
 use App\Models\Filiere;
 use App\Models\Professor;
+use Illuminate\Database\Eloquent\Relations\Pivot;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use App\Http\Requests\StoreFiliereRequest;
@@ -17,9 +19,24 @@ class FiliereController extends Controller
     public function index()
     {
         return view('filieres.index', [
-            'filieres' => Filiere::all()
+            'filieres' => Filiere::with('departement')->get()
         ]);
     }
+
+
+    public function profFilieres()
+    {
+        $professorId = auth()->user()->professor->id;
+
+        $filieres = Filiere::whereHas('professors', function ($query) use ($professorId) {
+            $query->where('professor_id', $professorId);
+        })->with('departement')->get();
+
+        return view('filieres.professor', [
+            'filieres' => $filieres,
+        ]);
+    }
+
 
     public function students(Filiere $filiere){
 
@@ -41,7 +58,6 @@ class FiliereController extends Controller
 
     public function notAssignedProfessors(Filiere $filiere)
     {
-        // Fetch all professors that do not belong to the current filiere
         $professors = Professor::whereNotExists(function ($query) use ($filiere) {
             $query->select(DB::raw(1))
                 ->from('filiere_professor')
@@ -51,7 +67,6 @@ class FiliereController extends Controller
             ->where('departement_id', $filiere->departement_id)
             ->get();
 
-        // dd($professors);
 
         return view('filieres.assign-professors', compact('filiere', 'professors'));
     }
@@ -59,15 +74,11 @@ class FiliereController extends Controller
 
     public function assignProfessors(Request $request, Filiere $filiere)
     {
-        // Validate the form data if needed
 
-        // Get the selected professor IDs from the form
         $selectedProfessors = $request->input('professors', []);
 
-        // Attach the selected professors to the filiere
         $filiere->professors()->attach($selectedProfessors);
 
-        // Redirect back or to a success page
         return redirect()->back()->with('success', 'Professors assigned successfully');
     }
 
@@ -78,15 +89,24 @@ class FiliereController extends Controller
      */
     public function create()
     {
-        //
+        return view('filieres.create', [
+            'departments' => Departement::all()
+        ]);
     }
 
     /**
      * Store a newly created resource in storage.
      */
-    public function store(StoreFiliereRequest $request)
+    public function store()
     {
-        //
+        $formfields = request()->validate([
+            'name' => 'required',
+            'departement_id' => 'required'
+        ]);
+
+        Filiere::create($formfields);
+
+        return redirect(route('filiere.index'));
     }
 
     /**

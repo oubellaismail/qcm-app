@@ -1,4 +1,4 @@
-<x-layout>
+<x-prof-layout>
 
     <div class="flex justify-between items-center mb-4">
         <h1 class="text-3xl font-bold">Filieres List</h1>
@@ -15,7 +15,6 @@
                 <thead>
                     <tr>
                         <th class="px-6 py-3 bg-gray-100">Name</th>
-                        <th class="px-6 py-3 bg-gray-100">Departement</th>
                         <th class="px-6 py-3 bg-gray-100">Actions</th>
                     </tr>
                 </thead>
@@ -24,13 +23,9 @@
                     @foreach ($filieres as $filiere)
                         <tr class="hover:bg-gray-100 transition-colors">
                             <td class="px-6 py-4">{{ $filiere->name }}</td>
-                            <td class="px-6 py-4">{{ $filiere->departement->name }}</td>
                             <td class="px-6 py-4">
                                 <a href="{{route('filiere.students', $filiere->id)}}" class="text-blue-500 hover:underline">
                                     See Students
-                                </a>
-                                <a href="{{route('filiere.professors', $filiere->id)}}" class="text-blue-500 hover:underline">
-                                    See Professors
                                 </a>
                             </td>
                         </tr>
@@ -39,4 +34,4 @@
             </table>
         </div>
     </div>
-</x-layout>
+</x-prof-layout>

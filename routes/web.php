@@ -79,7 +79,8 @@ Route::prefix('/departements')->controller(UserController::class)->group(functio
 Route::prefix('/filieres')->controller(UserController::class)->group(function () {
 
     Route::get('/', [FiliereController::class, 'index'])->name('filiere.index')->middleware('auth');
-    Route::post('/post', [FiliereController::class, 'post'])->name('filiere.post')->middleware('auth');
+    Route::get('/prof', [FiliereController::class, 'profFilieres'])->name('filiere.profIndex')->middleware('auth');
+    Route::post('/store', [FiliereController::class, 'store'])->name('filiere.store')->middleware('auth');
     Route::get('/create', [FiliereController::class, 'create'])->name('filiere.create')->middleware('auth');
     Route::get('/students/{filiere}', [FiliereController::class, 'students'])->name('filiere.students')->middleware('auth');
     Route::get('/professors/{filiere}', [FiliereController::class, 'professors'])->name('filiere.professors')->middleware('auth');
