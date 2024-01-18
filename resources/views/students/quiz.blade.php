@@ -33,7 +33,6 @@
                     <li class="flex items-center mb-2">
                         <input type="checkbox" name="selected_options[]" value="${option.id}" class="form-checkbox rounded text-blue-500">
                         <span class="ml-2">${option.option_text}</span>
-                        ${option.is_correct ? '<span class="text-green-500 ml-2">[Correct]</span>' : ''}
                     </li>
                 `;
             });

@@ -8,7 +8,6 @@
                 <tr>
                     <th class="px-6 py-3 bg-gray-100">Title</th>
                     <th class="px-6 py-3 bg-gray-100">Descripiton</th>
-                    <th class="px-6 py-3 bg-gray-100">Status</th>
                 </tr>
             </thead>
             <tbody>
@@ -18,12 +17,12 @@
                             <a href="{{route('quiz.pass', $quiz->id)}}">
                                 {{ $quiz->title }}
                             </a>
+                            @error('error')
+                                <p class="text-red-500 text-xs italic">{{ $message }}</p>
+                            @enderror
                         </td>
                         <td class="px-6 py-4 text-center">
                             {{ $quiz->description }}
-                        </td>
-                        <td class="px-6 py-4 text-center">
-                            <p>Passed/not</p>
                         </td>
                     </tr>
                 @endforeach

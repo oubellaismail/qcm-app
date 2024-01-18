@@ -58,7 +58,9 @@ class QuizController extends Controller
         $grade = Grade::where('student_id', $id)->where('quiz_id', $quiz->id)->first();
 
         if ($grade) {
-            return back();
+            return back() -> withErrors([
+                'error' => 'You have already passed this quiz !'
+            ]);
         }
 
         return view('students.quiz', [
