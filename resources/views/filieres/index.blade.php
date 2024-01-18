@@ -1,5 +1,4 @@
 <x-layout>
-
     <div class="flex justify-between items-center mb-4">
         <h1 class="text-3xl font-bold">Filieres List</h1>
         <form method="GET" action="{{ route('filiere.create') }}">
@@ -26,6 +25,13 @@
                             <td class="px-6 py-4 text-center">{{ $filiere->name }}</td>
                             <td class="px-6 py-4 text-center">{{ $filiere->departement->name }}</td>
                             <td class="px-6 py-4 text-center">
+                                <form method="POST" action="{{ route('filiere.destroy', $filiere->id) }}">
+                                    @csrf
+                                    @method('DELETE')
+                                    <button type="submit" class="text-red-500 hover:underline mr-2">
+                                        Delete
+                                    </button>
+                                </form>
                                 <a href="{{route('filiere.students', $filiere->id)}}" class="text-blue-500 hover:underline">
                                     See Students
                                 </a>

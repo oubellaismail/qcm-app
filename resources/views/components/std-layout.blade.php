@@ -15,16 +15,12 @@
                 <a class="text-white text-lg font-bold" href="{{route('student.index')}}">Home</a>
             </div>
             <div class="flex items-center">
-                @guest
-                    <a href="{{route('user.login')}}" class="text-white">Login</a>
-                @else
-                    <div class="text-white mr-4">Hello, Student {{ auth()->user()->name }}</div>
-                    <form action="{{route('user.logout')}}" method="POST">
-                        @csrf
-                        @method('DELETE')
-                        <button type="submit" class="text-white">Logout</button>
-                    </form>
-                @endguest
+                <div class="text-white mr-4">Hello, Student {{ auth()->user()->name }}</div>
+                <form action="{{route('user.logout')}}" method="POST">
+                    @csrf
+                    @method('DELETE')
+                    <button type="submit" class="text-white">Logout</button>
+                </form>
             </div>
         </div>
     </nav>

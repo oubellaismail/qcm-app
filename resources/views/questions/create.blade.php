@@ -1,4 +1,4 @@
-<x-prof-layout>
+<x-layout>
     <div class="bg-gray-100">
         
         <div class="container mx-auto mt-5">

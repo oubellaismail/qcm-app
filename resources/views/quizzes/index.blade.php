@@ -1,4 +1,4 @@
-<x-prof-layout>
+<x-layout>
 
     <div class="flex justify-end mb-4">
             <form method="GET" action="{{route('quiz.create')}}">
@@ -67,4 +67,4 @@
 
 </div>
 
-</x-prof-layout>
+</x-layout>

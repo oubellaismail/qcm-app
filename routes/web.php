@@ -74,15 +74,18 @@ Route::prefix('/departements')->controller(UserController::class)->group(functio
 });
 
 Route::prefix('/filieres')->controller(UserController::class)->group(function () {
-
+    
     Route::get('/', [FiliereController::class, 'index'])->name('filiere.index')->middleware('auth');
     Route::get('/prof', [FiliereController::class, 'profFilieres'])->name('filiere.profIndex')->middleware('auth');
     Route::post('/store', [FiliereController::class, 'store'])->name('filiere.store')->middleware('auth');
     Route::get('/create', [FiliereController::class, 'create'])->name('filiere.create')->middleware('auth');
     Route::get('/students/{filiere}', [FiliereController::class, 'students'])->name('filiere.students')->middleware('auth');
     Route::get('/professors/{filiere}', [FiliereController::class, 'professors'])->name('filiere.professors')->middleware('auth');
-    Route::get('/{filiere}/noprofessors', [FiliereController::class, 'notAssignedProfessors'])->name('filiere.no-assign-professors');
-    Route::post('/{filiere}/assign-professors', [FiliereController::class, 'assignProfessors'])->name('filiere.assign-professors');
+    Route::get('/noprofessors/{filiere}', [FiliereController::class, 'notAssignedProfessors'])->name('filiere.no-assign-professors')->middleware('auth');
+    Route::post('/assign-professors/{filiere}', [FiliereController::class, 'assignProfessors'])->name('filiere.assign-professors')->middleware('auth');
+    Route::post('/detachProfessor/{filiere}/{professor}', [FiliereController::class, 'detachProfessor'])->name('filiere.detachProfessor')->middleware('auth');
+    Route::delete('/delete/{filiere}', [FiliereController::class, 'destroy'])->name('filiere.destroy');
+    
 });
 
 

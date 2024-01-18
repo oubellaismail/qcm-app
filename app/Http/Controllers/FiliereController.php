@@ -82,6 +82,14 @@ class FiliereController extends Controller
         return redirect()->back()->with('success', 'Professors assigned successfully');
     }
 
+    public function detachProfessor(Request $request, Filiere $filiere, Professor $professor)
+    {
+        $filiere->professors()->detach($professor);
+
+        return redirect()->back()->with('success', 'Professor detached successfully');
+    }
+
+
 
 
     /**
@@ -138,6 +146,8 @@ class FiliereController extends Controller
      */
     public function destroy(Filiere $filiere)
     {
-        //
+        $filiere->delete();
+
+        return redirect()->route('filiere.index');
     }
 }

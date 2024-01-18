@@ -1,4 +1,4 @@
-<x-prof-layout>
+<x-layout>
     <div class="bg-gray-100">
         <div class="container mx-auto py-8">
             <h1 class="text-3xl font-bold mb-8">Grades</h1>
@@ -23,4 +23,4 @@
             </table>
         </div>
     </div>
-</x-prof-layout>
+</x-layout>

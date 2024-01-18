@@ -1,4 +1,4 @@
-<x-std-layout>
+<x-layout>
     <div class="bg-gray-100">
     <div class="container mx-auto py-8">
         <h1 class="text-3xl font-bold mb-8">Quiz List</h1>
@@ -32,4 +32,4 @@
 
 </div>
 
-</x-std-layout>
+</x-layout>
