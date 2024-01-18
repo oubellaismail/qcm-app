@@ -12,7 +12,7 @@
     <nav class="bg-blue-500 p-4">
         <div class="container mx-auto flex justify-between items-center">
             <div>
-                <a class="text-white text-lg font-bold" href="{{route('quizzes.index')}}">Home</a>
+                <a class="text-white text-lg font-bold" href="{{route('quiz.index')}}">Home</a>
             </div>
             <div class="flex items-center">
                 @guest

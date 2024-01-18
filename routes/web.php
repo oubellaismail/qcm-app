@@ -26,17 +26,17 @@ use App\Http\Controllers\RegisterController;
 
 //Route User routes
 
+Route::get('/', [UserController::class, 'login'])->name('user.login')->middleware('guest');
 
 Route::prefix('/user')->controller(UserController::class)->group(function(){
-    Route::get('/user/create', [UserController::class, 'create'])->name('user.create')->middleware('auth');
-    Route::get('/user/edit/{user}', [UserController::class, 'edit'])->name('user.edit')->middleware('auth');
-    Route::post('/user/register', [UserController::class, 'store'])->name('user.store')->middleware('auth');
-    Route::get('/users', [UserController::class, 'index'])->name('user.index')->middleware('auth');
-    Route::delete('/user/destroy/{id}', [UserController::class, 'destroy'])->name('user.destroy')->middleware('auth');
-    Route::post('/user/update/{user}', [UserController::class, 'update'])->name('user.update')->middleware('auth');
-    Route::get('/user/login', [UserController::class, 'login'])->name('user.login')->middleware('guest');
-    Route::post('/user/auth', [UserController::class, 'auth'])->name('user.auth');
-    Route::delete('/user/logout', [UserController::class, 'logout'])->name('user.logout');
+    Route::get('/create', [UserController::class, 'create'])->name('user.create')->middleware('auth');
+    Route::get('/edit/{user}', [UserController::class, 'edit'])->name('user.edit')->middleware('auth');
+    Route::post('/register', [UserController::class, 'store'])->name('user.store')->middleware('auth');
+    Route::get('', [UserController::class, 'index'])->name('user.index')->middleware('auth');
+    Route::delete('/destroy/{id}', [UserController::class, 'destroy'])->name('user.destroy')->middleware('auth');
+    Route::post('/update/{user}', [UserController::class, 'update'])->name('user.update')->middleware('auth');
+    Route::post('/auth', [UserController::class, 'auth'])->name('user.auth');
+    Route::delete('/logout', [UserController::class, 'logout'])->name('user.logout');
 });
 
 
@@ -52,6 +52,7 @@ Route::prefix('/quiz')->controller(UserController::class)->group(function(){
     Route::post('/store', [QuizController::class, 'store'])->name('quiz.store')->middleware('auth');
     Route::post('/check-answers', [QuizController::class, 'checkAnswers'])->name('quiz.checkAnswers')->middleware('auth');
     Route::post('/submit', [QuizController::class, 'submit'])->name('quiz.submit')->middleware('auth');
+    Route::delete('/destroy/{quiz}', [QuizController::class, 'destroy'])->name('quiz.destroy')->middleware('auth');
 });
 
 Route::prefix('/question')->controller(UserController::class)->group(function(){

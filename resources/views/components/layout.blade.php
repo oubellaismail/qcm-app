@@ -15,12 +15,12 @@
                 <a class="text-white text-lg font-bold" href="{{route('user.index')}}">Home</a>
             </div>
             <div class="flex items-center">
-                <a href="" class="text-white">Users</a>
+                <a href="{{route('user.index')}}" class="text-white">Users</a>
                 <a href="{{route('departement.index')}}" class="text-white ml-4">Departments</a>
                 <a href="{{route('filiere.index')}}" class="text-white ml-4">Filieres</a>
             </div>
             <div class="flex items-center">
-                    <div class="text-white mr-4">Hello, Professor {{ auth()->user()->name }}</div>
+                    <div class="text-white mr-4">Hello,admin {{ auth()->user()->name }}</div>
                     <form action="{{route('user.logout')}}" method="POST">
                         @csrf
                         @method('DELETE')

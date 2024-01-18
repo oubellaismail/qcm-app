@@ -67,7 +67,7 @@ class QuizController extends Controller
 
         Quiz::create($validator);
 
-        return redirect(route('quizzes.index'));
+        return redirect(route('quiz.index'));
     }
 
     public function submit(){
@@ -80,6 +80,12 @@ class QuizController extends Controller
         ]);
 
         return redirect(route('student.index'));
+    }
+
+    public function destroy(Quiz $quiz)
+    {
+        $quiz->delete();
+        return redirect()->route('quiz.index')->with('success', 'Task created successfully!');
     }
 }
 

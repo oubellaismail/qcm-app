@@ -34,7 +34,7 @@
                                 <i class='fas fa-edit'></i>
                                 Update
                             </a>
-                            <form method="POST" action="" class="inline">
+                            <form method="POST" action="{{route('quiz.destroy', $quiz->id)}}" class="inline">
                                 @csrf
                                 @method('DELETE')
                                 <button type="submit" class="text-red-500 ml-2 hover:underline">
