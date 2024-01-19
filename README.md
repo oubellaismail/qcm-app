@@ -1,66 +1,132 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+# QCM-APP
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+The QCM App is a powerful Laravel-based application designed specifically for educational institutions. It features robust capabilities for managing users, departments, fields, quizzes, and grades, and is equipped to handle varied roles such as administrators, professors, and students.
 
-## About Laravel
+## Table of Contents
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+- [Installation](#installation)
+- [Configuration](#configuration)
+- [Environment Setup](#environment-setup)
+- [Usage](#usage)
+- [Additional Information](#additional-information)
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+## Installation
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+To set up your local development environment, perform the following steps:
 
-## Learning Laravel
+Clone the repository
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+```
+git clone https://github.com/oubellaismail/qcm-app.git
+```
 
-You may also try the [Laravel Bootcamp](https://bootcamp.laravel.com), where you will be guided through building a modern Laravel application from scratch.
+Navigate to the project directory
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains over 2000 video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+```
+cd qcm-app
+```
 
-## Laravel Sponsors
+Install Composer dependencies
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the [Laravel Partners program](https://partners.laravel.com).
+```
+composer install
+```
 
-### Premium Partners
+If any issues arise, run the update command 
 
-- **[Vehikl](https://vehikl.com/)**
-- **[Tighten Co.](https://tighten.co)**
-- **[WebReinvent](https://webreinvent.com/)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel/)**
-- **[Cyber-Duck](https://cyber-duck.co.uk)**
-- **[DevSquad](https://devsquad.com/hire-laravel-developers)**
-- **[Jump24](https://jump24.co.uk)**
-- **[Redberry](https://redberry.international/laravel/)**
-- **[Active Logic](https://activelogic.com)**
-- **[byte5](https://byte5.de)**
-- **[OP.GG](https://op.gg)**
+```
+composer update
+```
 
-## Contributing
+Set up your environment file
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+```
+cp .env.example .env
+```
 
-## Code of Conduct
+ Generate a new application key
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+```
+php artisan key:generate
+```
 
-## Security Vulnerabilities
+Run the database migrations (make sure your database is configured in .env)
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+```
+php artisan migrate
+```
 
-## License
+Populate the roles table with predefined roles then create an admin user
+(Execute this SQL query in your database management tool or via command line, **admin password is 'admin@gmail.com'**)
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+```
+INSERT INTO `roles` (`id`, `name`, `created_at`, `updated_at`) VALUES
+(1, 'admin', NULL, NULL),
+(2, 'Professor', NULL, NULL),
+(3, 'Student', NULL, NULL);
+
+INSERT INTO `users` (`id`, `name`, `email`, `email_verified_at`, `password`, `remember_token`, `created_at`, `updated_at`, `role_id`) VALUES
+(1, 'admin', 'admin@gmail.com', NULL, '$2y$12$vUDUrpK.YxsswI3m6EB8BeGANRID4FPd8GKM/prOJvc1pLOioCHXy', NULL, '2024-01-06 08:15:07', '2024-01-06 08:15:07', 1);
+```
+
+Start the local development server
+
+```
+php artisan serve
+```
+
+ You can now access the server at http://localhost:8000
+
+## Configuration
+
+### Basic Configuration
+
+After installation, you can begin configuration by updating the environment variables in the `.env` file. These include:
+
+- `DB_CONNECTION`, `DB_HOST`, `DB_PORT`, `DB_DATABASE`, `DB_USERNAME`, and `DB_PASSWORD` for database configuration.
+- `APP_ENV`, `APP_DEBUG`, and `APP_URL` to set the application environment, debug mode, and URL respectively.
+
+### Admin Configuration
+
+As the project uses a single admin account, it is important to manually set up the first admin user record by the SQL query provided in the installation section to create the admin user record in the database or create a seed for the initial user.
+
+## Environment Setup
+
+Prerequisites you will need:
+
+- PHP 
+- MySQL 
+- Composer
+
+Ensure your PHP installation includes the required extensions. More details can be found in the Laravel documentation.
+
+## Usage
+
+### Admin Panel
+
+To manage users, departments, and fields:
+
+1. Log in as the admin user.
+2. Navigate to the admin panel via the dashboard.
+3. Perform user, department, and field management operations.
+
+### Professor's Interface
+
+Professors can manage quizzes and view student data via their respective dashboards.
+
+### Student's Interface
+
+Students can access and take quizzes that are assigned to them.
+
+Each role's functionalities and interfaces are secured and can only be accessed by authenticated users with the correct privileges.
+
+## Additional Information
+
+For a complete guide on Laravel deployment and environment specifics, please refer to the [official Laravel documentation](https://laravel.com/docs).
+
+Feel free to reach out with questions or contributions to the project.
+
+---
+
+Copyright © 2024 Oubella Ismail
+```
