@@ -127,6 +127,3 @@ For a complete guide on Laravel deployment and environment specifics, please ref
 Feel free to reach out with questions or contributions to the project.
 
 ---
-
-Copyright © 2024 Oubella Ismail
-```
