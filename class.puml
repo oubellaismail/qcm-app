@@ -1,0 +1,114 @@
+@startuml
+
+class Departement {
+  + bigint id
+  + varchar name
+  + timestamp created_at
+  + timestamp updated_at
+}
+
+class Filiere {
+  + bigint id
+  + varchar name
+  + bigint departement_id
+  + timestamp created_at
+  + timestamp updated_at
+}
+
+class FiliereProfessor {
+  + bigint id
+  + bigint professor_id
+  + bigint filiere_id
+  + timestamp created_at
+  + timestamp updated_at
+}
+
+class Grade {
+  + bigint id
+  + bigint student_id
+  + bigint quiz_id
+  + double grade
+  + tinyint is_passed
+  + timestamp created_at
+  + timestamp updated_at
+}
+
+class Option {
+  + bigint id
+  + text option_text
+  + tinyint is_correct
+  + bigint question_id
+  + timestamp created_at
+  + timestamp updated_at
+}
+
+class Professor {
+  + bigint id
+  + bigint user_id
+  + bigint departement_id
+  + timestamp created_at
+  + timestamp updated_at
+}
+
+class Question {
+  + bigint id
+  + text description
+  + bigint quiz_id
+  + timestamp created_at
+  + timestamp updated_at
+}
+
+class Quiz {
+  + bigint id
+  + varchar title
+  + text description
+  + bigint user_id
+  + bigint professor_id
+  + tinyint isVisible
+  + timestamp created_at
+  + timestamp updated_at
+}
+
+class Role {
+  + bigint id
+  + varchar name
+  + timestamp created_at
+  + timestamp updated_at
+}
+
+class Student {
+  + bigint id
+  + bigint user_id
+  + bigint filiere_id
+  + timestamp created_at
+  + timestamp updated_at
+}
+
+class User {
+  + bigint id
+  + varchar name
+  + varchar email
+  + timestamp email_verified_at
+  + varchar password
+  + varchar remember_token
+  + bigint role_id
+  + timestamp created_at
+  + timestamp updated_at
+}
+
+Filiere "*" -- "1" Departement
+FiliereProfessor "1..*" -- "1" Filiere
+FiliereProfessor "1..*" -- "1" Professor
+Grade "1" -- "1" Student
+Grade "1..*" -- "1" Quiz
+Option "4" -- "1" Question
+Professor "1..*" -- "1" Departement
+Professor "1" -- "1" User
+Question "0..*" -- "1" Quiz
+Quiz "1..*" -- "1" Professor
+Quiz "1..*" -- "1" User
+Student "1..*" -- "1" Filiere
+Student "1" -- "1" User
+User "1..*" -- "1" Role
+
+@enduml
