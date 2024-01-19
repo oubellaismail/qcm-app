@@ -18,7 +18,7 @@ class UserController extends Controller
         if (auth()->user()->role->id != 1) {
             abort(404);
         }
-        $users = User::with('role')->get();
+        $users = User::with('role')->where('role_id', '!=', 1)->get();
         return view('users.index', compact('users'));
     }
 
